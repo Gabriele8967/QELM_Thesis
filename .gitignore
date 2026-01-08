@@ -1,0 +1,38 @@
+# --- Python & System Junk ---
+__pycache__/
+*.py[cod]
+*$py.class
+.DS_Store
+Thumbs.db
+
+# --- Virtual Environments ---
+venv/
+env/
+.venv/
+.env
+
+# --- IDE Settings (VS Code) ---
+.vscode/
+*.code-workspace
+
+# --- Jupyter Notebooks ---
+.ipynb_checkpoints/
+*/.ipynb_checkpoints/
+
+# --- PROJECT SPECIFIC IGNORES ---
+
+# 1. Ignora i dati grezzi (MNIST si scarica in automatico via codice)
+data/raw/
+
+# 2. Ignora i file temporanei processati
+data/processed/
+
+# 3. Ignora i pesi dei modelli salvati (Meglio rigenerarli col training)
+data/checkpoints/*.pth
+
+# 4. Ignora i grafici generati durante i test
+results/figures/*.png
+results/figures/*.pdf
+
+# 5. Ignora i log di esecuzione se presenti
+logs/
