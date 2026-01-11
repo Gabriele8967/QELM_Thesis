@@ -1,7 +1,7 @@
 import torch
 import torch.nn as nn
 import torch.optim as optim
-from tqdm import tqdm # La barra di caricamento (fondamentale per non impazzire)
+from tqdm import tqdm 
 import os
 
 def train_autoencoder(model, train_loader, test_loader, epochs, lr, device, save_path):

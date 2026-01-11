@@ -4,12 +4,13 @@ import torch.nn.functional as F
 
 class ConvAutoencoder(nn.Module):
     def __init__(self, latent_dim= 10):
+
         """
-        Autoencoder Convoluzionale per MNIST.
-        
-        Args:
-            latent_dim (int): Dimensione dello spazio latente (collo di bottiglia).
-                              Questo vettore sarà l'input per il Quantum Reservoir.
+        Convolutional autoencoder for MNIST.
+
+        Arguments:
+            latent_dim (int): Size of the latent space (bottleneck).
+            This vector will be the input to the Quantum Reservoir.
         """
 
         super(ConvAutoencoder, self).__init__()
