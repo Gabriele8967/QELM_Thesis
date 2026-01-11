@@ -3,6 +3,7 @@ import torch
 from src.data_loader import get_mnist_dataloaders
 from src.models.autoencoder import ConvAutoencoder
 from src.training.train_ae import train_autoencoder
+from src.utils import set_seed
 
 def load_config(path):
     with open(path, 'r') as f:
@@ -10,6 +11,10 @@ def load_config(path):
     
 def main():
     config = load_config("configs/config.yaml")
+
+    seed = config.get('experiment', {}).get('seed', 42)
+    set_seed(seed)
+
     batch_size = config['data']['batch_size']   
     latent_dim = config['model']['latent_dim']  
     lr = float(config['training']['lr'])        
@@ -22,15 +27,15 @@ def main():
             device = 'cpu'
         
     
-    print("Caricamento Dati")
+    print("Load Data")
     train_loader, test_loader = get_mnist_dataloaders(batch_size=batch_size)
     
     
-    print(f"Creazione Autoencoder (Latent Dim: {latent_dim})")
+    print(f"Creation Autoencoder (Latent Dim: {latent_dim})")
     model = ConvAutoencoder(latent_dim=latent_dim)
     
     
-    print("Avvio Training")
+    print("Start Training")
     train_autoencoder(
         model=model,
         train_loader=train_loader,
@@ -41,7 +46,7 @@ def main():
         save_path=save_path
     )
     
-    print("\n Autoencoder Addestrato!")
+    print("\n Autoencoder Trained!")
 
 if __name__ == "__main__":
     main()
