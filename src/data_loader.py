@@ -1,68 +1,45 @@
 import torch
-from torchvision import datasets, transforms
+from torch import nn
 from torch.utils.data import DataLoader
-from typing import Tuple
+from pathlib import Path
+from torchvision import datasets
+from torchvision.transforms import ToTensor
+import matplotlib.pyplot as plt
 
-def get_mnist_dataloaders(
-    batch_size: int, 
-    data_dir: str = "./data/raw", 
-    num_workers: int = 0
-) -> Tuple[DataLoader, DataLoader]:
-    
-    """
-    Downloads and prepares the MNIST dataset.
-    
-    Args:
-        batch_size (int): Number of samples per batch.
-        data_dir (str): Directory where the dataset will be stored.
-        num_workers (int): Number of subprocesses for data loading. 
-                           Set to 0 on Windows/Laptops to avoid crashes.
+def get_mnist_dataloaders(batch_size: int, data_dir = None, num_workers : int = 0) -> tuple[DataLoader, DataLoader]:
 
-    Returns:
-        Tuple[DataLoader, DataLoader]: (train_loader, test_loader)
-    """
+    if data_dir is None:
+        base_path = Path(__file__).resolve().parent.parent
+        data_dir = base_path / "data" / "raw"
+    else:
+        data_dir = Path(data_dir).resolve()
     
-    # Transformation pipeline:
-    # 1. Convert image to PyTorch Tensor (Scales pixel values to [0, 1])
-    # Note: We do NOT use extra normalization (mean/std) here because 
-    # the Autoencoder uses a Sigmoid activation (output [0, 1]).
-    transform = transforms.Compose([
-        transforms.ToTensor(),
-    ])
+    data_dir.mkdir(parents=True, exist_ok=True)
 
-    # Download and load Training Set
-    train_dataset = datasets.MNIST(
-        root=data_dir, 
-        train=True, 
-        download=True, 
-        transform=transform
-    )
-    
-    # Download and load Test Set
-    test_dataset = datasets.MNIST(
-        root=data_dir, 
-        train=False, 
-        download=True, 
-        transform=transform
+    train_data = datasets.MNIST(
+        root=str(data_dir),
+        train = True,
+        download = True,
+        transform = ToTensor(),
+        target_transform = None
+        )
+
+
+    test_data = datasets.MNIST(
+        root = str(data_dir),
+        train = False,
+        download = True,
+        transform = ToTensor()
     )
 
-    # Create DataLoaders
-    # shuffle=True for training to break correlations
-    train_loader = DataLoader(
-        train_dataset, 
-        batch_size=batch_size, 
-        shuffle=True, 
-        num_workers=num_workers,
-        pin_memory=True if torch.cuda.is_available() else False
-    )
+    train_dataloader = DataLoader(train_data,
+                                batch_size = batch_size,
+                                shuffle=True,
+                                num_workers=num_workers)
 
-    # shuffle=False for testing (evaluation must be deterministic)
-    test_loader = DataLoader(
-        test_dataset, 
-        batch_size=batch_size, 
-        shuffle=False, 
-        num_workers=num_workers,
-        pin_memory=True if torch.cuda.is_available() else False
-    )
-
-    return train_loader, test_loader
+    test_dataloader = DataLoader(test_data,
+                                batch_size = batch_size,
+                                shuffle = False,
+                                num_workers=num_workers)
+    
+    return train_dataloader, test_dataloader
