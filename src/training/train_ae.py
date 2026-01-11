@@ -51,7 +51,7 @@ def train_autoencoder(model, train_loader, test_loader, epochs, lr, device, save
                 val_loss += loss.item()
         
         avg_val_loss = val_loss / len(test_loader)
-        print(f"📉 Epoch [{epoch+1}/{epochs}] Train Loss: {avg_train_loss:.6f} | Test Loss: {avg_val_loss:.6f}")
+        print(f"Epoch [{epoch+1}/{epochs}] Train Loss: {avg_train_loss:.6f} | Test Loss: {avg_val_loss:.6f}")
 
     os.makedirs(os.path.dirname(save_path), exist_ok=True)
     torch.save(model.state_dict(), save_path)
