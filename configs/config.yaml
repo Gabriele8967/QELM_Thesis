@@ -12,5 +12,5 @@ model:
   
 training:
   epochs: 10
-  lr: 0.001
+  lr: 0.05
   save_path: "./data/checkpoints/ae_mnist.pth"

@@ -36,3 +36,5 @@ results/figures/*.pdf
 
 # 5. Ignora i log di esecuzione se presenti
 logs/
+
+evaluate.py

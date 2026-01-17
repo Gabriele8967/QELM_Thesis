@@ -36,7 +36,7 @@ class ConvAutoencoder(nn.Module):
         # --- Latent space ---
         #linear projection to reduct space
         self.fc_encoder = nn.Linear(self.flatten_dim, latent_dim)
-
+        
 
         ### Decorder - reconstruction
 
@@ -60,7 +60,7 @@ class ConvAutoencoder(nn.Module):
 
         x = x.view(x.size(0), -1)
 
-        latent_code = self.fc_encoder(x)
+        latent_code = torch.sigmoid(self.fc_encoder(x))
 
         x = self.fc_decoder(latent_code)
 
@@ -73,7 +73,7 @@ class ConvAutoencoder(nn.Module):
     def encode(self,x):
         x = self.encoder(x)
         x = x.view(x.size(0), -1)
-        return self.fc_encoder(x)
+        return torch.sigmoid(self.fc_encoder(x))
 
 
 

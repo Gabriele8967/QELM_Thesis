@@ -55,4 +55,4 @@ def train_autoencoder(model, train_loader, test_loader, epochs, lr, device, save
 
     os.makedirs(os.path.dirname(save_path), exist_ok=True)
     torch.save(model.state_dict(), save_path)
-    print(f"Modello salvato in: {save_path}")
+    print(f"Model saved in: {save_path}")
