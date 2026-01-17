@@ -42,14 +42,14 @@ QELM_Thesis/
 │   ├── models/              # Neural Network Architectures
 │   │   └── autoencoder.py   # PyTorch Convolutional Autoencoder
 │   ├── quantum/             # Quantum Physics Logic
-│   │   └── reservoir.py     # QuTiP Simulation & Hamiltonian
+│   │   └── reservoir.py     # Qiskit Simulation & Hamiltonian
 │   ├── training/            # Training Loops
 │   │   ├── train_ae.py      # Classical Pre-training
 │   │   └── train_qelm.py    # Quantum Pipeline Training
 │   ├── data_loader.py       # Data ingestion pipeline
 │   └── utils.py             # Reproducibility & Logging tools
 │
-├── main.py                  # Entry Point (Run this to train)
+├── main.py                  # Entry Point (Run this to train AE)
 └── requirements.txt         # Dependencies
 ```
 
