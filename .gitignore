@@ -27,6 +27,10 @@ data/raw/
 # 2. Ignora i file temporanei processati
 data/processed/
 
+data/MNIST
+
+Thesis
+
 # 3. Ignora i pesi dei modelli salvati (Meglio rigenerarli col training)
 data/checkpoints/*.pth
 
