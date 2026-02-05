@@ -28,29 +28,42 @@ The pipeline addresses the "NISQ bottleneck" (limited qubits) through a 4-step p
 
 ```text
 QELM_Thesis/
-├── configs/                 # Configuration files 
-│   └── config.yaml          # Central control for parameters 
+├── configs/
+│   └── config.yaml
 │
-├── data/                    # Dataset storage
-│   ├── raw/                 # MNIST raw binaries (downloaded automatically)
-│   └── checkpoints/         # Saved model weights (.pth)
+├── data/
+│   ├── MNIST/                    # Downloaded automatically
+│   └── checkpoints/              # Saved model weights (.pth)
 │
-├── notebooks/               # Experimental Playground
-│   └── 01_Exploration.ipynb # Visualization and prototyping
+├── results/                      # Generated plots and analysis
 │
-├── src/                     # Source Code Modules
-│   ├── models/              # Neural Network Architectures
-│   │   └── autoencoder.py   # PyTorch Convolutional Autoencoder
-│   ├── quantum/             # Quantum Physics Logic
-│   │   └── reservoir.py     # Qiskit Simulation & Hamiltonian
-│   ├── training/            # Training Loops
-│   │   ├── train_ae.py      # Classical Pre-training
-│   │   └── train_qelm.py    # Quantum Pipeline Training
-│   ├── data_loader.py       # Data ingestion pipeline
-│   └── utils.py             # Reproducibility & Logging tools
+├── src/
+│   ├── models/
+│   │   ├── autoencoder.py        # Convolutional Autoencoder
+│   │   └── hybrid_model.py       # AE + Quantum Layer + Classifier
+│   │
+│   ├── quantum/
+│   │   ├── gates.py              # Quantum gate matrices
+│   │   ├── quantum_simulator.py  # Custom statevector simulator
+│   │   ├── custom_layer.py       # Quantum reservoir layer
+│   │   └── reservoir.py          # Qiskit-based reservoir
+│   │
+│   ├── training/
+│   │   ├── train_ae.py           # Autoencoder pre-training
+│   │   └── train_qelm.py         # QELM training (pseudo-inverse)
+│   │
+│   ├── analysis/
+│   │   ├── benchmark_baseline.py    # Classical baseline comparison
+│   │   ├── cluster_analysis.py      # K-Means clustering analysis
+│   │   ├── visualize_manifold.py    # t-SNE visualization
+│   │   ├── analyze_entanglement.py  # Von Neumann entropy analysis
+│   │   └── analyze_phase_transition.py
+│   │
+│   ├── data_loader.py
+│   └── utils.py
 │
-├── main.py                  # Entry Point (Run this to train AE)
-└── requirements.txt         # Dependencies
+├── main.py
+└── requirements.txt
 ```
 
 ## Insallation
