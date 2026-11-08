@@ -2,8 +2,9 @@
 
 ![Python](https://img.shields.io/badge/Python-3.10%2B-blue)
 ![PyTorch](https://img.shields.io/badge/PyTorch-Deep%20Learning-red)
-![QuTiP](https://img.shields.io/badge/QuTiP-Quantum%20Sim-orange)
-![Status](https://img.shields.io/badge/Status-Thesis%20In%20Progress-green)
+![Simulator](https://img.shields.io/badge/Quantum%20Sim-custom%20statevector-orange)
+![Status](https://img.shields.io/badge/Status-Thesis%20completed%20(Apr%202026)-green)
+![License](https://img.shields.io/badge/License-MIT-lightgrey)
 
 ## Overview
 
@@ -66,13 +67,18 @@ QELM_Thesis/
 └── requirements.txt
 ```
 
-## Insallation
+## Installation
 1. **Clone the repository:**
    ```bash
-   git clone [https://github.com/Gabriele8967/QELM_Thesis.git](https://github.com/Gabriele8967/QELM_Thesis.git)
+   git clone https://github.com/Gabriele8967/QELM_Thesis.git
    cd QELM_Thesis
    ```
-2. **Install dependencies**: It is recommended to use a virtual environment.
+2. **Install dependencies** (a virtual environment is recommended):
+   ```bash
+   python -m venv .venv
+   source .venv/bin/activate
+   pip install -r requirements.txt
+   ```
 
 ## Configuration and Usage
 
@@ -80,14 +86,15 @@ QELM_Thesis/
 
    Open ```configs/config.yaml``` to adjust parameters:
 
-      ``` YAML
+      ```yaml
+      experiment:
+        seed: 42
+        device: "cpu"     # "auto", "cpu" or "cuda"
       model:
-         latent_dim: 4      # Number of Qubits Features
+        latent_dim: 20    # autoencoder features; the QELM uses latent_dim / 2 qubits
       training:
-         epochs: 10
-      lr: 0.001
-         experiment:
-      device: "auto"     # Automatically detects CUDA/CPU
+        epochs: 10
+        lr: 0.001
       ```
 2. **Run the Training**
    To download the dataset and train the Autoencoder (Phase 1), simply run:
@@ -103,7 +110,19 @@ QELM_Thesis/
 
       3. Train the model.
 
-      4. Save the weights to  ```data/checkpoints/ae_mnist.pth ```.
+      4. Save the weights to `data/checkpoints/ae_mnist.pth`.
+
+3. **Train the QELM readout**
+   With the autoencoder weights in place, run from the repository root:
+
+      ```bash
+      python src/training/train_qelm.py
+      ```
+   It extracts the quantum reservoir features for the training set, solves the regularised least-squares readout in closed form and prints the test accuracy.
+
+4. **Analyses** (optional): the scripts in `src/analysis/` reproduce the baseline comparison, clustering, t-SNE, entanglement and phase-transition plots saved in `results/`.
+
+MNIST is downloaded automatically on first run and is not stored in the repository.
 
 
 ## Methodology & References
@@ -115,3 +134,7 @@ Specifically, we implement the **Transverse Field Ising Model (TFIM)** Hamiltoni
 
 1.  **De Lorenzis, A., Plastina, F., et al.** (2025). *Harnessing quantum extreme learning machines for image classification*. Physical Review Applied.
 2.  **Mujal, P., et al.** (2021). *Opportunities in Quantum Reservoir Computing and Extreme Learning Machines*. Advanced Quantum Technologies.
+
+## License
+
+Released under the [MIT License](LICENSE).

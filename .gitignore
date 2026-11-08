@@ -43,3 +43,8 @@ results/figures/*.pdf
 logs/
 
 evaluate.py
+# 6. Dataset/checkpoint scaricati in qualunque sottocartella
+#    (es. src/training/data/ quando si lancia uno script da li')
+**/data/raw/
+**/data/MNIST/
+**/data/checkpoints/
