@@ -2,13 +2,16 @@
 numpy
 matplotlib
 scipy
+scikit-learn
+seaborn
 
 # Deep Learning Framework
 torch
 torchvision
 
-# Quantum Simulation
-qutip
+# Optional: Qiskit-based reservoir (src/quantum/reservoir.py, not used by the main pipeline)
+qiskit
+qiskit-machine-learning
 
 # Utilities & Configuration
 pyyaml
